@@ -20,29 +20,37 @@ window.onload = function() {
     "J",
     "Q",
     "K",
-    "A"
+    "A",
   ];
 
-  function generateRandomSuit() {
-    return suit[Math.floor(Math.random() * suit.length)];
+  let generateRandomSuit = () => Math.floor(Math.random() * suit.length);
+  let generateRandomValue = () => Math.floor(Math.random() * value.length);
+
+  function cardSuit() {
+    let randomSuit = suit[generateRandomSuit()];
+
+    if (randomSuit === "♥" || randomSuit === "♦") {
+      let redSuit = `<div class="drawn-suit" style="color:red">${randomSuit}</div>`;
+      return redSuit;
+    } else {
+      let blacksuit = `<div class="drawn-suit">${randomSuit}</div>`;
+      return blacksuit;
+    }
   }
 
-  function generateRandomValue() {
-    return value[Math.floor(Math.random() * value.length)];
+  function cardValue() {
+    let randomValue = value[generateRandomValue()];
+    return randomValue;
   }
 
-  let randomSuit = generateRandomValue();
-  let randomValue = generateRandomSuit();
+  function displayCard() {
+    let suit = cardSuit();
+    let value = cardValue();
 
-  document.querySelector(".card").innerHTML =
-    randomValue + randomSuit + randomValue;
-
-  let cardValue = document.querySelector(".card");
-  cardValue.innerHTML = `${randomValue} ${randomSuit} ${randomValue}`;
-
-  if (randomSuit == "♥" || randomSuit == "♠") {
-    cardValue.style.color = "red";
+    document.querySelector(".top").innerHTML = suit;
+    document.querySelector(".number").innerHTML = value;
+    document.querySelector(".bottom").innerHTML = suit;
   }
 
-  console.log(`${randomValue} ${randomSuit} ${randomValue}`);
+  displayCard();
 };
